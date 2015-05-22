@@ -18,7 +18,7 @@
 
 	function wf_cookieconsent_scripts() {
 
-		wp_enqueue_script( 'wf-cookiechoices', plugin_dir_url( __FILE__ ) . '/js/cookiechoices.js', array(), '0.0.1', true );
+		wp_enqueue_script( 'wf-cookiechoices', plugin_dir_url( __FILE__ ) . '/js/cookiechoices.js', array(), '0.0.2', true );
 
 	}
 	
@@ -33,10 +33,13 @@
 		$options = get_option('wf_cookieconsent_options');
 		$language = wf_get_language();
 		$linkHref = (empty($options[$language]['wf_linkhref']) ? '' : $options[$language]['wf_linkhref']);
-		$linkText = (empty($options[$language]['wf_linkText']) ? '' : $options[$language]['wf_linkText']);
+		$linkText = (empty($options[$language]['wf_linktext']) ? '' : $options[$language]['wf_linktext']);
 		$cookieText = (empty($options[$language]['wf_cookietext']) ? '' : $options[$language]['wf_cookietext']);
 		$position = (empty($options['wf_position']) ? '' : $options['wf_position']);
 		$dismissText = (empty($options[$language]['wf_dismisstext']) ? '' : $options[$language]['wf_dismisstext']);
+
+		if(is_numeric($linkHref))
+			$linkHref = get_page_link($linkHref);
 	
 ?>
 	<script type="text/javascript">

@@ -48,25 +48,25 @@
 
                     case "it":
 
-                        data.cookieText = "I cookie ci aiutano ad erogare servizi di qualità. Utilizzando i nostri servizi, l'utente accetta le nostre modalità d'uso dei cookie.";
-                        data.dismissText = "OK";
-                        data.linkText = "Ulteriori informazioni";
+                        data.cookieText = data.cookieText || "I cookie ci aiutano ad erogare servizi di qualità. Utilizzando i nostri servizi, l'utente accetta le nostre modalità d'uso dei cookie.";
+                        data.dismissText = data.dismissText || "OK";
+                        data.linkText = data.linkText || "Ulteriori informazioni";
 
                         break;
 
                     case "fr":
 
-                        data.cookieText = "Les cookies nous permettent de vous proposer nos services plus facilement. En utilisant nos services, vous nous donnez expressément votre accord pour exploiter ces cookies.";
-                        data.dismissText = "OK";
-                        data.linkText = "En savoir plus";
+                        data.cookieText = data.cookieText || "Les cookies nous permettent de vous proposer nos services plus facilement. En utilisant nos services, vous nous donnez expressément votre accord pour exploiter ces cookies.";
+                        data.dismissText = data.dismissText || "OK";
+                        data.linkText = data.linkText || "En savoir plus";
 
                         break;
 
                     default:
 
-                        data.cookieText = "Cookies help us deliver our services. By using our services, you agree to our use of cookies.";
-                        data.dismissText = "Got it";
-                        data.linkText = "Learn more";
+                        data.cookieText = data.cookieText || "Cookies help us deliver our services. By using our services, you agree to our use of cookies.";
+                        data.dismissText = data.dismissText || "Got it";
+                        data.linkText = data.linkText || "Learn more";
 
                 }
 
