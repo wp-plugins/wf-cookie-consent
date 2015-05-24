@@ -43,7 +43,7 @@
 	
 ?>
 	<script type="text/javascript">
-		document.addEventListener('DOMContentLoaded', function(event) { cookieChoices.showCookieBar({ linkHref: '<?php echo $linkHref; ?>', dismissText: '<?php echo $dismissText; ?>', position: '<?php echo $position; ?>', cookieText:'<?php echo $cookieText; ?>', linkText: '<?php echo $linkText; ?>', language: '<?php echo $language; ?>'}) });
+		document.addEventListener('DOMContentLoaded', function(event) { cookieChoices.showCookieBar({ linkHref: '<?php echo esc_js($linkHref); ?>', dismissText: '<?php echo esc_js($dismissText); ?>', position: '<?php echo esc_js($position); ?>', cookieText:'<?php echo esc_js($cookieText); ?>', linkText: '<?php echo esc_js($linkText); ?>', language: '<?php echo esc_js($language); ?>'}) });
 	</script>
 <?php
 
