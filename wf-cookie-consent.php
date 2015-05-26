@@ -89,14 +89,14 @@ function plugin_admin_init(){
 	register_setting( 'wf_cookieconsent_options', 'wf_cookieconsent_options' );
 
 	add_settings_section('plugin_main', 'General settings', '', 'wf-cookieconsent');
-	add_settings_field('wf_position', esc_html__('Position'), 'plugin_setting_radio', 'wf-cookieconsent', 'plugin_main', array( 'fieldname' => 'wf_position','radioFields' => array( 'top' , 'bottom') ) );
+	add_settings_field('wf_position', esc_html__('Position'), 'plugin_setting_radio', 'wf-cookieconsent', 'plugin_main', array( 'fieldname' => 'wf_position', 'fielddescription' => 'Choose the position for the infobar', 'radioFields' => array( 'top' , 'bottom') ) );
 
 	foreach(wf_get_languages() as $lang){
 		add_settings_section('plugin_main_' . $lang, 'Custom settings (' . $lang . ')', '', 'wf-cookieconsent');
-		add_settings_field('wf_linkhref', esc_html__('Page to provide more information'), 'plugin_setting_page_selector', 'wf-cookieconsent', 'plugin_main_' . $lang, array( 'fieldname' => 'wf_linkhref', 'lang' => $lang ) );
-		add_settings_field('wf_linktext', esc_html__('Linktext to provide more information'), 'plugin_setting_string', 'wf-cookieconsent', 'plugin_main_' . $lang, array( 'fieldname' => 'wf_linktext', 'lang' => $lang ) );
-		add_settings_field('wf_cookietext', esc_html__('Infotext'), 'plugin_setting_string', 'wf-cookieconsent', 'plugin_main_' . $lang, array( 'fieldname' => 'wf_cookietext', 'lang' => $lang ) );
-		add_settings_field('wf_dismisstext', esc_html__('Dismisstext'), 'plugin_setting_string', 'wf-cookieconsent', 'plugin_main_' . $lang, array( 'fieldname' => 'wf_dismisstext', 'lang' => $lang ) );
+		add_settings_field('wf_linkhref', esc_html__('Page to provide more information'), 'plugin_setting_page_selector', 'wf-cookieconsent', 'plugin_main_' . $lang, array( 'fieldname' => 'wf_linkhref', 'fielddescription' => '', 'lang' => $lang ) );
+		add_settings_field('wf_linktext', esc_html__('Link text to provide more information'), 'plugin_setting_string', 'wf-cookieconsent', 'plugin_main_' . $lang, array( 'fieldname' => 'wf_linktext', 'fielddescription' => '', 'lang' => $lang ) );
+		add_settings_field('wf_cookietext', esc_html__('Info text'), 'plugin_setting_string', 'wf-cookieconsent', 'plugin_main_' . $lang, array( 'fieldname' => 'wf_cookietext', 'fielddescription' => '', 'lang' => $lang ) );
+		add_settings_field('wf_dismisstext', esc_html__('Dismiss text'), 'plugin_setting_string', 'wf-cookieconsent', 'plugin_main_' . $lang, array( 'fieldname' => 'wf_dismisstext', 'fielddescription' => '', 'lang' => $lang ) );
 	}
 }
 
@@ -107,6 +107,7 @@ function plugin_setting_string($args) {
 		$options[$args['lang']][$args['fieldname']] = '';
 
 	echo "<input id='plugin_text_string' name='wf_cookieconsent_options[{$args['lang']}][{$args['fieldname']}]' size='40' type='text' value='{$options[$args['lang']][$args['fieldname']]}' />";
+	echo (empty($args['fielddescription']) ? '' :  "<p class='description'>". $args['fielddescription'] ."</p>");
 }
 
 function plugin_setting_page_selector($args) {
@@ -119,6 +120,7 @@ function plugin_setting_page_selector($args) {
 		'name' => 'wf_cookieconsent_options['.$args['lang'].']['.$args['fieldname'].']',
 		'selected' => $options[$args['lang']][$args['fieldname']],
 	 	'show_option_none' => ' '));
+	echo (empty($args['fielddescription']) ? '' :  "<p class='description'>". $args['fielddescription'] ."</p>");
 }
 
 function plugin_setting_radio($args) {
@@ -133,6 +135,7 @@ function plugin_setting_radio($args) {
 			echo "<input type='radio' id='' name='wf_cookieconsent_options[{$args['fieldname']}]' value='{$radioField}'" . ($radioField == $options[$args['fieldname']] ? 'checked' : '')."><label for=''>" . $radioField . "</label><br />";
 		}
 	}
+	echo (empty($args['fielddescription']) ? '' :  "<p class='description'>". $args['fielddescription'] ."</p>");
   	echo "</fieldset>";
 }
 
