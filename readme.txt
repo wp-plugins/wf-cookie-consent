@@ -29,6 +29,9 @@ WF Cookie Consent is the "wunderfarm-way" to show how your website complies with
 
 == Changelog ==
 
+= 0.8.7 =
+Improved compatibility with other plugins and themes
+
 = 0.8.6 =
 Bugfix: Set cookie path (thx for the bug report adfasyxcv!)
 
