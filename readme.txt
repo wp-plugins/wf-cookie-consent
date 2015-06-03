@@ -1,10 +1,10 @@
 === Plugin Name ===
 Contributors: wunderfarm
 Donate link: http://wunderfarm.com/
-Tags: compliance, cookie law, cookielaw, cookies, eu cookie law, eu privacy directive, privacy, privacy directive, cookie consent, cookieconsent, Multi language, WPML, polylang, responsive
+Tags: compliance, cookie law, cookielaw, cookies, cookiebar, policy, bar, eu cookie law, cookie law banner, cookiechoices, eu privacy directive, privacy, privacy directive, cookie consent, cookieconsent, Multi language, WPML, polylang, responsive, admin, code, content, embed, google, html, integration, javascript, links, login, marketing, page, pages, plugin, simple, text, url, wordpress, law, 
 Requires at least: 3.0.1
 Tested up to: 4.2.2
-Stable tag: 0.8.3
+Stable tag: 0.8.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,6 +28,15 @@ WF Cookie Consent is the "wunderfarm-way" to show how your website complies with
 3. Multi-language support
 
 == Changelog ==
+
+= 0.8.6 =
+Bugfix: Set cookie path (thx for the bug report adfasyxcv!)
+
+= 0.8.5 =
+Improved compatibility with other plugins
+
+= 0.8.4 =
+Escaped text strings for echoing in JS & option field descriptions.
 
 = 0.8.3 =
 Bugfix: Custom settings with Polylang
