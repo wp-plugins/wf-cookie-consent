@@ -62,6 +62,22 @@
 
                         break;
 
+                    case "nl":
+
+                        data.cookieText = data.cookieText || "Cookies helpen ons bij het leveren van onze diensten. Door gebruik te maken van onze diensten, gaat u akkoord met ons gebruik van cookies.";
+                        data.dismissText = data.dismissText || "OK";
+                        data.linkText = data.linkText || "Meer informatie";
+
+                        break;
+
+                    case "fi":
+
+                        data.cookieText = data.cookieText || "Evästeet auttavat meitä palvelujemme toimituksessa. Käyttämällä palvelujamme hyväksyt evästeiden käytön.";
+                        data.dismissText = data.dismissText || "Selvä";
+                        data.linkText = data.linkText || "Lisätietoja";
+
+                        break;
+
                     default:
 
                         data.cookieText = data.cookieText || "Cookies help us deliver our services. By using our services, you agree to our use of cookies.";
