@@ -3,7 +3,7 @@
 	Plugin Name: WF Cookie Consent
 	Plugin URI: http://www.wunderfarm.com/plugins/wf-cookie-consent
 	Description: The wunderfarm-way to show how your website complies with the EU Cookie Law.
-	Version: 0.8.8
+	Version: 0.9.1
 	License: GNU General Public License v2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	Author: wunderfarm
@@ -18,7 +18,7 @@
 
 	function wf_cookieconsent_scripts() {
 
-		wp_enqueue_script( 'wf-cookiechoices', plugin_dir_url( __FILE__ ) . '/js/cookiechoices.js', array(), '0.0.2', true );
+		wp_enqueue_script( 'wf-cookiechoices', plugin_dir_url( __FILE__ ) . 'js/cookiechoices.js', array(), '0.0.3', true );
 
 	}
 	
@@ -105,8 +105,8 @@ function wf_cookieconsent_setting_string($args) {
 	
 	if(empty($options[$args['lang']][$args['fieldname']]))
 		$options[$args['lang']][$args['fieldname']] = '';
-
-	echo "<input id='plugin_text_string' name='wf_cookieconsent_options[{$args['lang']}][{$args['fieldname']}]' size='40' type='text' value='{$options[$args['lang']][$args['fieldname']]}' />";
+		$esc_value = esc_attr($options[$args['lang']][$args['fieldname']]);
+	echo "<input id='plugin_text_string' name='wf_cookieconsent_options[{$args['lang']}][{$args['fieldname']}]' size='40' type='text' value='{$esc_value}' />";
 	echo (empty($args['fielddescription']) ? '' :  "<p class='description'>". $args['fielddescription'] ."</p>");
 }
 
@@ -169,15 +169,26 @@ if (!function_exists('wf_get_languages')) {
 		//get all languages from polylang plugin https://wordpress.org/plugins/polylang/
 		global $polylang;
 		if (isset($polylang)) {
-			$pl_languages = $polylang->model->get_languages_list();
-			foreach ($pl_languages as $pl_language) {
-				$languages[] = $pl_language->slug;
+			if(!function_exists('pll_current_language') || pll_current_language() == false) {
+				//get all languages
+				$pl_languages = $polylang->model->get_languages_list();
+				foreach ($pl_languages as $pl_language) {
+					$languages[] = $pl_language->slug;
+				}
+			} else {
+				//get selected language
+				$languages[] = pll_current_language();
 			}
 		} else if(function_exists('icl_get_languages')) {
-			//icl_get_languages for wpml
-			$wpml_languages = icl_get_languages();
-			foreach ($wpml_languages as $wpml_language) {
-				$languages[] = $wpml_language['language_code'];
+			if (!defined('ICL_LANGUAGE_CODE') || ICL_LANGUAGE_CODE == 'all') {
+				//get all languages with icl_get_languages for wpml
+				$wpml_languages = icl_get_languages('skip_missing=0');
+				foreach ($wpml_languages as $wpml_language) {
+					$languages[] = $wpml_language['language_code'];
+				}
+			} else {
+				//get selected language
+				$languages[] = ICL_LANGUAGE_CODE;
 			}
 		}
 		else {
