@@ -4,11 +4,11 @@ Donate link: http://wunderfarm.com/
 Tags: compliance, cookie law, cookielaw, cookies, cookiebar, policy, bar, eu cookie law, cookie law banner, cookiechoices, eu privacy directive, privacy, privacy directive, cookie consent, cookieconsent, Multi language, WPML, polylang, responsive, admin, code, content, embed, google, html, integration, javascript, links, login, marketing, page, pages, plugin, simple, text, url, wordpress, law, 
 Requires at least: 3.0.1
 Tested up to: 4.2.2
-Stable tag: 0.9.2
+Stable tag: 0.9.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-The `wunderfarm-way` to show how your website complies with the EU Cookie Law - 100% responsive and with multi-language support.
+The `wunderfarm-way` to show how your website complies with the EU Cookie Law - 100% responsive and with multi-language support!
 
 == Description ==
 
@@ -28,6 +28,9 @@ WF Cookie Consent is the "wunderfarm-way" to show how your website complies with
 3. Multi-language support
 
 == Changelog ==
+
+= 0.9.3 =
+Updated Readme and Upgrade Notice.
 
 = 0.9.2 =
 Bugfix: Compatibility with Polylang and WPML.
@@ -64,3 +67,8 @@ Bugfixes: Custom fields for default language (en) and selected more-info page.
 
 = 0.8.1 =
 Support for WPML and Polylang.
+
+== Upgrade Notice ==
+
+= 0.9.2 =
+Fixes a list of bugs that settings could not be saved.
