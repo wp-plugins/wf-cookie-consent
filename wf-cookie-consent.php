@@ -3,7 +3,7 @@
 	Plugin Name: WF Cookie Consent
 	Plugin URI: http://www.wunderfarm.com/plugins/wf-cookie-consent
 	Description: The wunderfarm-way to show how your website complies with the EU Cookie Law.
-	Version: 0.9.1
+	Version: 0.9.2
 	License: GNU General Public License v2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	Author: wunderfarm
@@ -116,10 +116,28 @@ function wf_cookieconsent_setting_page_selector($args) {
 	if(empty($options[$args['lang']][$args['fieldname']]))
 		$options[$args['lang']][$args['fieldname']] = '';
 
-	wp_dropdown_pages(array(
-		'name' => 'wf_cookieconsent_options['.$args['lang'].']['.$args['fieldname'].']',
-		'selected' => $options[$args['lang']][$args['fieldname']],
-	 	'show_option_none' => ' '));
+	$wf_page_query = new WP_Query( array( 
+	    'post_type' => 'page',
+	    'suppress_filters' => true, // With this option, WPML will not use any filter
+	    'orderby' => 'menu_order', 
+	    'order'=>'desc',
+	    'lang'=>'all' // With this option, Polylang will return all languages
+	) );
+
+	echo "<select name='wf_cookieconsent_options[".$args['lang']."][".$args['fieldname']."]' id='wf_cookieconsent_options[".$args['lang']."][".$args['fieldname']."]'>";
+	foreach ( $wf_page_query->posts as $post ) {
+		$wf_language_information = wf_get_language_information($post->ID);
+		if(!empty($wf_language_information))
+			$wf_language_information = "(" .  $wf_language_information . ")";
+ 
+		if($options[$args['lang']][$args['fieldname']] == $post->ID)
+		    echo "<option class='level-0' value='" . $post->ID . "' selected='selected'>" . $post->post_title . " " . $wf_language_information . "</option>";
+		else
+		    echo "<option class='level-0' value='" . $post->ID . "'>" . $post->post_title . " " . $wf_language_information . "</option>";
+
+	}
+	echo "</select>";
+
 	echo (empty($args['fielddescription']) ? '' :  "<p class='description'>". $args['fielddescription'] ."</p>");
 }
 
@@ -169,26 +187,16 @@ if (!function_exists('wf_get_languages')) {
 		//get all languages from polylang plugin https://wordpress.org/plugins/polylang/
 		global $polylang;
 		if (isset($polylang)) {
-			if(!function_exists('pll_current_language') || pll_current_language() == false) {
-				//get all languages
-				$pl_languages = $polylang->model->get_languages_list();
-				foreach ($pl_languages as $pl_language) {
-					$languages[] = $pl_language->slug;
-				}
-			} else {
-				//get selected language
-				$languages[] = pll_current_language();
+			//get all languages
+			$pl_languages = $polylang->model->get_languages_list();
+			foreach ($pl_languages as $pl_language) {
+				$languages[] = $pl_language->slug;
 			}
 		} else if(function_exists('icl_get_languages')) {
-			if (!defined('ICL_LANGUAGE_CODE') || ICL_LANGUAGE_CODE == 'all') {
-				//get all languages with icl_get_languages for wpml
-				$wpml_languages = icl_get_languages('skip_missing=0');
-				foreach ($wpml_languages as $wpml_language) {
-					$languages[] = $wpml_language['language_code'];
-				}
-			} else {
-				//get selected language
-				$languages[] = ICL_LANGUAGE_CODE;
+			//get all languages with icl_get_languages for wpml
+			$wpml_languages = icl_get_languages('skip_missing=0');
+			foreach ($wpml_languages as $wpml_language) {
+				$languages[] = $wpml_language['language_code'];
 			}
 		}
 		else {
@@ -196,6 +204,23 @@ if (!function_exists('wf_get_languages')) {
 			$languages[] = substr(get_locale(),0,2);
 		}
 		return $languages;
+	}
+
+}
+
+if (!function_exists('wf_get_language_information')) {
+
+	function wf_get_language_information($post_id) {
+		$locale = '';
+
+		if (function_exists('pll_get_post_language')) {
+			$locale = pll_get_post_language($post_id);
+		} else if (function_exists('wpml_get_language_information')) {
+			$language_information = wpml_get_language_information($post_id);
+			$locale = $language_information['display_name'];
+		}
+		
+		return $locale;
 	}
 
 }

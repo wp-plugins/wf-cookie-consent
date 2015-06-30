@@ -29,6 +29,9 @@ WF Cookie Consent is the "wunderfarm-way" to show how your website complies with
 
 == Changelog ==
 
+= 0.9.2 =
+Improved compatibility with Polylang and WPML.
+
 = 0.9.1 =
 Improved compatibility with Polylang and WPML.
 
