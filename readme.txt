@@ -4,11 +4,11 @@ Donate link: http://wunderfarm.com/
 Tags: compliance, cookie law, cookielaw, cookies, cookiebar, policy, bar, eu cookie law, cookie law banner, cookiechoices, eu privacy directive, privacy, privacy directive, cookie consent, cookieconsent, Multi language, WPML, polylang, responsive, admin, code, content, embed, google, html, integration, javascript, links, login, marketing, page, pages, plugin, simple, text, url, wordpress, law, 
 Requires at least: 3.0.1
 Tested up to: 4.2.2
-Stable tag: 0.8.8
+Stable tag: 0.9.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-The `wunderfarm-way` to show how your website complies with the EU Cookie Law - 100% responsive and with multi-language support!
+The `wunderfarm-way` to show how your website complies with the EU Cookie Law - 100% responsive and with multi-language support.
 
 == Description ==
 
@@ -29,26 +29,38 @@ WF Cookie Consent is the "wunderfarm-way" to show how your website complies with
 
 == Changelog ==
 
+= 0.9.2 =
+Bugfix: Compatibility with Polylang and WPML.
+
+= 0.9.1 =
+Improved compatibility with Polylang and WPML.
+
+= 0.9.0 =
+Bugfix: For websites using earlier versions of WPML.
+
+= 0.8.9 =
+Bugfix: Include js file.
+
 = 0.8.8 =
-Bugfix: Improved wf_get_languages()
+Bugfix: Improved wf_get_languages().
 
 = 0.8.7 =
-Improved compatibility with other plugins and themes
+Improved compatibility with other plugins and themes.
 
 = 0.8.6 =
 Bugfix: Set cookie path (thx for the bug report adfasyxcv!)
 
 = 0.8.5 =
-Improved compatibility with other plugins
+Improved compatibility with other plugins.
 
 = 0.8.4 =
 Escaped text strings for echoing in JS & option field descriptions.
 
 = 0.8.3 =
-Bugfix: Custom settings with Polylang
+Bugfix: Custom settings with Polylang.
 
 = 0.8.2 =
 Bugfixes: Custom fields for default language (en) and selected more-info page.
 
 = 0.8.1 =
-Support for WPML and Polylang
+Support for WPML and Polylang.
