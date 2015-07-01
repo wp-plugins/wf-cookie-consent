@@ -3,7 +3,7 @@
 	Plugin Name: WF Cookie Consent
 	Plugin URI: http://www.wunderfarm.com/plugins/wf-cookie-consent
 	Description: The wunderfarm-way to show how your website complies with the EU Cookie Law.
-	Version: 0.9.3
+	Version: 0.9.4
 	License: GNU General Public License v2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	Author: wunderfarm
@@ -117,12 +117,13 @@ function wf_cookieconsent_setting_page_selector($args) {
 		$options[$args['lang']][$args['fieldname']] = '';
 
 	$wf_page_query = new WP_Query( array( 
-	    'post_type' => 'page',
-	    'suppress_filters' => true, // With this option, WPML will not use any filter
-	    'orderby' => 'menu_order', 
-	    'order'=>'desc',
-	    'lang'=>'all' // With this option, Polylang will return all languages
-	) );
+	     'post_type' => 'page',
+	     'suppress_filters' => true, // With this option, WPML will not use any filter
+	     'orderby' => 'title', 
+	     'order'=>'asc',
+	     'lang'=>'all', // With this option, Polylang will return all languages
+	     'nopaging'=>true
+	 ) );
 
 	echo "<select name='wf_cookieconsent_options[".$args['lang']."][".$args['fieldname']."]' id='wf_cookieconsent_options[".$args['lang']."][".$args['fieldname']."]'>";
 	foreach ( $wf_page_query->posts as $post ) {
