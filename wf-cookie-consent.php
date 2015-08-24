@@ -3,7 +3,7 @@
 	Plugin Name: WF Cookie Consent
 	Plugin URI: http://www.wunderfarm.com/plugins/wf-cookie-consent
 	Description: The wunderfarm-way to show how your website complies with the EU Cookie Law.
-	Version: 0.9.4
+	Version: 0.9.5
 	License: GNU General Public License v2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	Author: wunderfarm
@@ -18,7 +18,7 @@
 
 	function wf_cookieconsent_scripts() {
 
-		wp_enqueue_script( 'wf-cookiechoices', plugin_dir_url( __FILE__ ) . 'js/cookiechoices.js', array(), '0.0.3', true );
+		wp_enqueue_script( 'wf-cookiechoices', plugin_dir_url( __FILE__ ) . 'js/cookiechoices.js', array(), '0.0.4', true );
 
 	}
 	
@@ -43,7 +43,23 @@
 	
 ?>
 	<script type="text/javascript">
-		document.addEventListener('DOMContentLoaded', function(event) { cookieChoices.showCookieBar({ linkHref: '<?php echo esc_js($linkHref); ?>', dismissText: '<?php echo esc_js($dismissText); ?>', position: '<?php echo esc_js($position); ?>', cookieText:'<?php echo esc_js($cookieText); ?>', linkText: '<?php echo esc_js($linkText); ?>', language: '<?php echo esc_js($language); ?>'}) });
+
+		(function(){
+
+			var cookieBar = function() { cookieChoices.showCookieBar({ linkHref: '<?php echo esc_js($linkHref); ?>', dismissText: '<?php echo esc_js($dismissText); ?>', position: '<?php echo esc_js($position); ?>', cookieText:'<?php echo esc_js($cookieText); ?>', linkText: '<?php echo esc_js($linkText); ?>', language: '<?php echo esc_js($language); ?>'}) };
+
+			if(document.addEventListener) {
+				document.addEventListener('DOMContentLoaded', cookieBar);
+			}
+			else {
+				document.attachEvent('onreadystatechange', function(event) { 
+		            if ( document.readyState === "complete" ) {
+		            	cookieBar();
+					}
+				});
+			}
+		})();
+
 	</script>
 <?php
 
