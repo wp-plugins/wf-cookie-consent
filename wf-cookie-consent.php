@@ -3,7 +3,7 @@
 	Plugin Name: WF Cookie Consent
 	Plugin URI: http://www.wunderfarm.com/plugins/wf-cookie-consent
 	Description: The wunderfarm-way to show how your website complies with the EU Cookie Law.
-	Version: 0.9.2
+	Version: 0.9.5
 	License: GNU General Public License v2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	Author: wunderfarm
@@ -18,7 +18,7 @@
 
 	function wf_cookieconsent_scripts() {
 
-		wp_enqueue_script( 'wf-cookiechoices', plugin_dir_url( __FILE__ ) . 'js/cookiechoices.js', array(), '0.0.3', true );
+		wp_enqueue_script( 'wf-cookiechoices', plugin_dir_url( __FILE__ ) . 'js/cookiechoices.js', array(), '0.0.4', true );
 
 	}
 	
@@ -43,7 +43,23 @@
 	
 ?>
 	<script type="text/javascript">
-		document.addEventListener('DOMContentLoaded', function(event) { cookieChoices.showCookieBar({ linkHref: '<?php echo esc_js($linkHref); ?>', dismissText: '<?php echo esc_js($dismissText); ?>', position: '<?php echo esc_js($position); ?>', cookieText:'<?php echo esc_js($cookieText); ?>', linkText: '<?php echo esc_js($linkText); ?>', language: '<?php echo esc_js($language); ?>'}) });
+
+		(function(){
+
+			var cookieBar = function() { cookieChoices.showCookieBar({ linkHref: '<?php echo esc_js($linkHref); ?>', dismissText: '<?php echo esc_js($dismissText); ?>', position: '<?php echo esc_js($position); ?>', cookieText:'<?php echo esc_js($cookieText); ?>', linkText: '<?php echo esc_js($linkText); ?>', language: '<?php echo esc_js($language); ?>'}) };
+
+			if(document.addEventListener) {
+				document.addEventListener('DOMContentLoaded', cookieBar);
+			}
+			else {
+				document.attachEvent('onreadystatechange', function(event) { 
+		            if ( document.readyState === "complete" ) {
+		            	cookieBar();
+					}
+				});
+			}
+		})();
+
 	</script>
 <?php
 
@@ -117,12 +133,13 @@ function wf_cookieconsent_setting_page_selector($args) {
 		$options[$args['lang']][$args['fieldname']] = '';
 
 	$wf_page_query = new WP_Query( array( 
-	    'post_type' => 'page',
-	    'suppress_filters' => true, // With this option, WPML will not use any filter
-	    'orderby' => 'menu_order', 
-	    'order'=>'desc',
-	    'lang'=>'all' // With this option, Polylang will return all languages
-	) );
+	     'post_type' => 'page',
+	     'suppress_filters' => true, // With this option, WPML will not use any filter
+	     'orderby' => 'title', 
+	     'order'=>'asc',
+	     'lang'=>'all', // With this option, Polylang will return all languages
+	     'nopaging'=>true
+	 ) );
 
 	echo "<select name='wf_cookieconsent_options[".$args['lang']."][".$args['fieldname']."]' id='wf_cookieconsent_options[".$args['lang']."][".$args['fieldname']."]'>";
 	foreach ( $wf_page_query->posts as $post ) {
@@ -196,7 +213,7 @@ if (!function_exists('wf_get_languages')) {
 			//get all languages with icl_get_languages for wpml
 			$wpml_languages = icl_get_languages('skip_missing=0');
 			foreach ($wpml_languages as $wpml_language) {
-				$languages[] = $wpml_language['language_code'];
+				$languages[] = !empty($wpml_language['language_code']) ? $wpml_language['language_code'] : $wpml_language['code'];
 			}
 		}
 		else {
