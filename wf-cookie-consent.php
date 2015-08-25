@@ -213,7 +213,7 @@ if (!function_exists('wf_get_languages')) {
 			//get all languages with icl_get_languages for wpml
 			$wpml_languages = icl_get_languages('skip_missing=0');
 			foreach ($wpml_languages as $wpml_language) {
-				$languages[] = $wpml_language['language_code'];
+				$languages[] = !empty($wpml_language['language_code']) ? $wpml_language['language_code'] : $wpml_language['code'];
 			}
 		}
 		else {
